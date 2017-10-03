@@ -1,8 +1,8 @@
 export class Tag {
-    private tagString: string;
-    private tagName: string;
-    private tagContent: string;
-    private contents: string[]; // tagContent split with blank
+    protected tagString: string;
+    protected tagName: string;
+    protected tagContent: string;
+    protected contents: string[]; // tagContent split with blank
 
     constructor(tag: string) {
         this.tagString = tag;
