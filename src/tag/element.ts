@@ -6,11 +6,10 @@ import { Tag } from './tag';
  * <!ELEMENT 元素名称 (元素内容)>
  */
 export class Element extends Tag {
-
-    /**
+  /**
      * the tag name always this first string of contents
      */
-    public getName(): string {
-        return this.contents[0];
-    }
+  public getName(): string {
+    return this.contents[0];
+  }
 }
