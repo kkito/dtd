@@ -7,8 +7,8 @@ import { Tag } from './tag';
  */
 export class Element extends Tag {
   /**
-     * the tag name always this first string of contents
-     */
+   * the tag name always this first string of contents
+   */
   public getName(): string {
     return this.contents[0];
   }
