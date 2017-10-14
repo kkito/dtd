@@ -1,5 +1,5 @@
+import { ElementContent, IElementSuffix } from './element_content';
 import { Tag } from './tag';
-import {ElementContent, ElementSuffix} from './element_content';
 /**
  * Element 
  * <!ELEMENT element-name category>
@@ -7,31 +7,33 @@ import {ElementContent, ElementSuffix} from './element_content';
  * <!ELEMENT element-name (element-content)>
  */
 export class Element extends Tag {
+  public static readonly CATEGORY_EMPTY = 'EMPTY';
+  public static readonly CATEGORY_ANY = 'ANY';
 
-  public static readonly CATEGORY_EMPTY = 'EMPTY'
-  public static readonly CATEGORY_ANY = 'ANY'
+  private theElementContent: string;
 
-  private theElementContent:string;
-
-  private _elementValue:string;
+  private theElementValue: string;
 
   //  Declaring Mixed Content <!ELEMENT note (#PCDATA|to|from|header|message)*>
-  private _mixContentSuffix:string;
+  private theMixContentSuffix: string;
 
   public constructor(tag: string) {
     super(tag);
 
-    const matchSuffix = ElementContent.matchSuffix(this.contents[1])
-    if(matchSuffix.suffix) {
-      this._mixContentSuffix = matchSuffix.suffix;
+    const matchSuffix = ElementContent.matchSuffix(this.contents[1]);
+    if (matchSuffix.suffix) {
+      this.theMixContentSuffix = matchSuffix.suffix;
     }
-    this._elementValue = matchSuffix.element;
+    this.theElementValue = matchSuffix.element;
 
-    let matches = this.elementValue().match(/\((.+)\)/);
-    if(matches){
-      this.theElementContent = matches[0]
+    const matches = this.elementValue().match(/\((.+)\)/);
+    if (matches) {
+      this.theElementContent = matches[0];
     }
+  }
 
+  public isMixContent(): boolean {
+    return !!this.theMixContentSuffix;
   }
 
   /**
@@ -41,11 +43,11 @@ export class Element extends Tag {
     return this.contents[0];
   }
 
-  public belongsCategory():boolean {
+  public belongsCategory(): boolean {
     return !this.theElementContent;
   }
 
-  public hasElementContent():boolean {
+  public hasElementContent(): boolean {
     return !this.belongsCategory();
   }
 
@@ -54,13 +56,12 @@ export class Element extends Tag {
    * Declaring Mixed Content <!ELEMENT note (#PCDATA|to|from|header|message)*>
    * 
    */
-  public elementContents():ElementContent[] {
-    //TODO
-    return []
+  public elementContents(): ElementContent[] {
+    // TODO
+    return [];
   }
 
-  public elementValue():string {
-    return this._elementValue;
+  public elementValue(): string {
+    return this.theElementValue;
   }
-
 }

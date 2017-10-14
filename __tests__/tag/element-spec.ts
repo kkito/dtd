@@ -16,15 +16,13 @@ test('get tag name', () => {
   expect(ele2.getName()).toBe('testTagName');
 });
 
+test('#belongsCategory , #hasElementContent', () => {
+  expect(ele.belongsCategory()).toBeTruthy();
+  expect(ele.hasElementContent()).toBeFalsy();
+  expect(ele2.belongsCategory()).toBeFalsy();
+  expect(ele2.hasElementContent()).toBeTruthy();
+});
 
-test('#belongsCategory , #hasElementContent' , () => {
-  expect(ele.belongsCategory()).toBeTruthy()
-  expect(ele.hasElementContent()).toBeFalsy()
-  expect(ele2.belongsCategory()).toBeFalsy()
-  expect(ele2.hasElementContent()).toBeTruthy()
-})
-
-test('#elementContent' , ()=>{
-  expect(ele3.elementValue()).toBe('(name|age|school)')
-})
-
+test('#elementContent', () => {
+  expect(ele3.elementValue()).toBe('(name|age|school)');
+});

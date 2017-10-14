@@ -1,79 +1,77 @@
-export interface ElementSuffix {
-    suffix: string, 
-    element: string
+export interface IElementSuffix {
+  suffix: string;
+  element: string;
 }
 
 export class ElementContent {
-    public static readonly suffixMoreThanOne = '+';
-    public static readonly suffixWildCard = '*';
-    public static readonly suffixZeroOrOne = '?';
+  public static readonly suffixMoreThanOne = '+';
+  public static readonly suffixWildCard = '*';
+  public static readonly suffixZeroOrOne = '?';
 
-    public static readonly suffixs = [
-        ElementContent.suffixMoreThanOne , 
-        ElementContent.suffixWildCard, 
-        ElementContent.suffixZeroOrOne
-    ]
+  public static readonly suffixs = [
+    ElementContent.suffixMoreThanOne,
+    ElementContent.suffixWildCard,
+    ElementContent.suffixZeroOrOne,
+  ];
 
-    public static readonly typePCDATA = '#PCDATA'
-    // public static readonly typePDATA = 'PDATA'
+  public static readonly typePCDATA = '#PCDATA';
+  // public static readonly typePDATA = 'PDATA'
 
-    public static matchSuffix(elementValue:string):ElementSuffix {
-        const result =  {
-            suffix: "", 
-            element: elementValue
-        }
-        ElementContent.suffixs.forEach((suffix) => {
-            if (elementValue.endsWith(suffix)) {
-                result.element= elementValue.substring(0, elementValue.length - 1)
-                result.suffix = suffix
-            }
-        })
-        return result;
+  public static matchSuffix(elementValue: string): IElementSuffix {
+    const result = {
+      element: elementValue,
+      suffix: '',
+    };
+    ElementContent.suffixs.forEach(suffix => {
+      if (elementValue.endsWith(suffix)) {
+        result.element = elementValue.substring(0, elementValue.length - 1);
+        result.suffix = suffix;
+      }
+    });
+    return result;
+  }
+
+  private theElementName: string;
+  private theSuffixChar: string;
+
+  constructor(childTagName: string) {
+    if (childTagName !== ElementContent.typePCDATA) {
+      const matchResult = ElementContent.matchSuffix(childTagName);
+      if (matchResult.suffix) {
+        this.theSuffixChar = matchResult.suffix;
+      }
+      this.theElementName = matchResult.element;
     }
+  }
 
-    private _elementName:string;
-    private _suffixChar:string;
+  /**
+   * if is element return true
+   * if is something like PCDATA return false
+   */
+  public isElement(): boolean {
+    return !!this.theElementName;
+  }
 
-    constructor(childTagName:string) {
-        if(childTagName != ElementContent.typePCDATA) {
-            const matchResult = ElementContent.matchSuffix(childTagName)
-            if(matchResult.suffix) {
-                this._suffixChar = matchResult.suffix;
-            }
-            this._elementName = matchResult.element;
-        }
-    }
+  public elementName(): string {
+    return this.theElementName;
+  }
 
-    /**
-     * if is element return true
-     * if is something like PCDATA return false
-     */
-    public isElement():boolean{
-        return !!this._elementName;
-    }
+  /**
+   * has + or ? etc
+   */
+  public hasSuffix(): boolean {
+    return !!this.theSuffixChar;
+  }
 
-    public elementName():string {
-        return this._elementName;
-    }
+  public sizeZeroOrOne(): boolean {
+    return this.theSuffixChar === ElementContent.suffixZeroOrOne;
+  }
 
-    /**
-     * has + or ? etc
-     */
-    public hasSuffix():boolean {
-        return !!this._suffixChar;
-    }
+  public sizeAny(): boolean {
+    return this.theSuffixChar === ElementContent.suffixWildCard;
+  }
 
-
-    public sizeZeroOrOne():boolean {
-        return this._suffixChar === ElementContent.suffixZeroOrOne;
-    }
-
-    public sizeAny():boolean {
-        return this._suffixChar === ElementContent.suffixWildCard;
-    }
-
-    public sizeOneOrMore():boolean {
-        return this._suffixChar === ElementContent.suffixMoreThanOne;
-    }
-
+  public sizeOneOrMore(): boolean {
+    return this.theSuffixChar === ElementContent.suffixMoreThanOne;
+  }
 }
