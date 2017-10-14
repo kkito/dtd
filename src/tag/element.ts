@@ -1,5 +1,5 @@
 import { Tag } from './tag';
-import {ElementContent} from './element_content';
+import {ElementContent, ElementSuffix} from './element_content';
 /**
  * Element 
  * <!ELEMENT element-name category>
@@ -13,12 +13,25 @@ export class Element extends Tag {
 
   private theElementContent:string;
 
+  private _elementValue:string;
+
+  //  Declaring Mixed Content <!ELEMENT note (#PCDATA|to|from|header|message)*>
+  private _mixContentSuffix:string;
+
   public constructor(tag: string) {
     super(tag);
+
+    const matchSuffix = ElementContent.matchSuffix(this.contents[1])
+    if(matchSuffix.suffix) {
+      this._mixContentSuffix = matchSuffix.suffix;
+    }
+    this._elementValue = matchSuffix.element;
+
     let matches = this.elementValue().match(/\((.+)\)/);
     if(matches){
       this.theElementContent = matches[0]
     }
+
   }
 
   /**
@@ -36,13 +49,18 @@ export class Element extends Tag {
     return !this.belongsCategory();
   }
 
+  /**
+   * Declaring either/or Content <!ELEMENT note (to,from,header,(message|body))>
+   * Declaring Mixed Content <!ELEMENT note (#PCDATA|to|from|header|message)*>
+   * 
+   */
   public elementContents():ElementContent[] {
     //TODO
     return []
   }
 
-  protected elementValue():string {
-    return this.contents[1]
+  public elementValue():string {
+    return this._elementValue;
   }
 
 }
