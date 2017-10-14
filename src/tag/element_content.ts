@@ -1,3 +1,8 @@
+export interface ElementSuffix {
+    suffix: string, 
+    element: string
+}
+
 export class ElementContent {
     public static readonly suffixMoreThanOne = '+';
     public static readonly suffixWildCard = '*';
@@ -12,20 +17,30 @@ export class ElementContent {
     public static readonly typePCDATA = '#PCDATA'
     // public static readonly typePDATA = 'PDATA'
 
+    public static matchSuffix(elementValue:string):ElementSuffix {
+        const result =  {
+            suffix: "", 
+            element: elementValue
+        }
+        ElementContent.suffixs.forEach((suffix) => {
+            if (elementValue.endsWith(suffix)) {
+                result.element= elementValue.substring(0, elementValue.length - 1)
+                result.suffix = suffix
+            }
+        })
+        return result;
+    }
+
     private _elementName:string;
     private _suffixChar:string;
 
     constructor(childTagName:string) {
         if(childTagName != ElementContent.typePCDATA) {
-            ElementContent.suffixs.forEach((suffix) => {
-                if(childTagName.endsWith(suffix)){
-                    this._elementName = childTagName.substring(0 , childTagName.length - 1)
-                    this._suffixChar = suffix
-                }
-            })
-            if(!this.hasSuffix()) {
-                this._elementName = childTagName;
+            const matchResult = ElementContent.matchSuffix(childTagName)
+            if(matchResult.suffix) {
+                this._suffixChar = matchResult.suffix;
             }
+            this._elementName = matchResult.element;
         }
     }
 
