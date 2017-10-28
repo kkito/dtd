@@ -35,16 +35,16 @@ export class Attlist extends Tag implements IAttlist {
     }
 
     public getElementName(): string {
-        return this.tagName;
-    }
-    public getAttibuteName(): string {
         return this.contents[0]
     }
-    public getAttributeType(): string {
+    public getAttibuteName(): string {
         return this.contents[1]
     }
-    public getAttributeValue(): string {
+    public getAttributeType(): string {
         return this.contents[2]
+    }
+    public getAttributeValue(): string {
+        return this.contents[3]
     }
 }
 // export interface IAttributeType {
