@@ -1,36 +1,37 @@
+import { StringUtil } from '../utils/string-util';
 import { Tag } from "./tag";
 
 export interface IAttlist {
-    getElementName():string;
-    getAttibuteName():string;
-    getAttributeType():string;
-    getAttributeValue():string;
+    getElementName(): string;
+    getAttibuteName(): string;
+    getAttributeType(): string;
+    getAttributeValue(): string;
 }
 
 export const enum AttributeType {
-    CDATA = 'CDATA' , 
-    ID = 'ID' , 
-    IDREF = 'IDREF' , 
-    IDREFS = 'IDREFS' , 
-    NMTOKEN = 'NMTOKEN' , 
-    NMTOKENS = 'NMTOKENS' , 
-    ENTITY = 'ENTITY' ,
-    ENTITYES = 'ENTITYES' ,
-    NOTATION = 'NOTATION' , 
-    xml = 'xml:' , 
+    CDATA = 'CDATA',
+    ID = 'ID',
+    IDREF = 'IDREF',
+    IDREFS = 'IDREFS',
+    NMTOKEN = 'NMTOKEN',
+    NMTOKENS = 'NMTOKENS',
+    ENTITY = 'ENTITY',
+    ENTITYES = 'ENTITYES',
+    NOTATION = 'NOTATION',
+    xml = 'xml:',
     ENUMERATED = ''
 }
 
 export const enum AttributeValue {
-    value = 'value' ,  // default value of attribute
-    REQUIRED = '#REQUIRED' ,  // the attribute is required
-    IMPLIED = '#IMPLIED' ,  // the attribute is optional
+    value = 'value',  // default value of attribute
+    REQUIRED = '#REQUIRED',  // the attribute is required
+    IMPLIED = '#IMPLIED',  // the attribute is optional
     FIXED = '#FIXED' // the attribute value is fixed
 }
 
 export class Attlist extends Tag implements IAttlist {
 
-    public constructor(tag:string) {
+    public constructor(tag: string) {
         super(tag);
     }
 
@@ -46,6 +47,7 @@ export class Attlist extends Tag implements IAttlist {
     public getAttributeValue(): string {
         return this.contents[3]
     }
+    // TODO use StringUtil
 }
 // export interface IAttributeType {
 // }
