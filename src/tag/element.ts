@@ -6,6 +6,13 @@ import { Tag } from './tag';
  * or
  * <!ELEMENT element-name (element-content)>
  */
+
+// TODO 
+export interface IElement {
+  getName(): string;
+  // validte(): boolean;
+}
+
 export class Element extends Tag {
   public static readonly CATEGORY_EMPTY = 'EMPTY';
   public static readonly CATEGORY_ANY = 'ANY';
