@@ -4,7 +4,8 @@ import { Tag } from "./tag";
 export interface IAttlist {
     getElementName(): string;
     getAttibuteName(): string;
-    getAttributeType(): string;
+    getAttributeTypeStr(): string;
+    getAttributeType():AttributeType;
     getAttributeValue(): string;
 }
 
@@ -30,7 +31,6 @@ export const enum AttributeValue {
 }
 
 export class Attlist extends Tag implements IAttlist {
-
     public constructor(tag: string) {
         super(tag);
     }
@@ -41,13 +41,18 @@ export class Attlist extends Tag implements IAttlist {
     public getAttibuteName(): string {
         return this.contents[1]
     }
-    public getAttributeType(): string {
+    public getAttributeTypeStr(): string {
         return this.contents[2]
     }
     public getAttributeValue(): string {
         return this.contents[3]
     }
     // TODO use StringUtil
+
+    public getAttributeType(): AttributeType {
+        throw new Error("Method not implemented.");
+    }
+
 }
 // export interface IAttributeType {
 // }

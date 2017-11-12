@@ -11,7 +11,7 @@ test('initialize' , () => {
     const attlist = new Attlist(attlistStr1);
     expect(attlist.getElementName()).toBe('payment')
     expect(attlist.getAttibuteName()).toBe('type')
-    expect(attlist.getAttributeType()).toBe(AttributeType.CDATA)
+    expect(attlist.getAttributeTypeStr()).toBe(AttributeType.CDATA)
     // TODO remove ""
     // expect(attlist.getAttributeValue()).toBe('check')
 })
@@ -19,7 +19,7 @@ test('initialize' , () => {
 test('fixed data' , () => {
     const  attlist = new Attlist(attlistStrFixed);
     expect(attlist.getAttibuteName()).toBe('company')
-    expect(attlist.getAttributeType()).toBe(AttributeType.CDATA)
+    expect(attlist.getAttributeTypeStr()).toBe(AttributeType.CDATA)
     expect(attlist.getAttributeValue()).toBe(AttributeValue.FIXED)
 })
 
