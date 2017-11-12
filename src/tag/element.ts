@@ -1,5 +1,7 @@
+import { AttributeType } from './attlist';
 import { ElementContent, IElementSuffix } from './element_content';
 import { Tag } from './tag';
+
 /**
  * Element 
  * <!ELEMENT element-name category>
@@ -10,7 +12,15 @@ import { Tag } from './tag';
 // TODO 
 export interface IElement {
   getName(): string;
-  // validte(): boolean;
+  validte(): boolean;
+  getContent():(IElement[] | AttributeType | null) , 
+  getCategory():(ElementCategory | null) , 
+  isCategory():boolean;
+}
+
+export enum ElementCategory {
+  EMPTY = 'EMPTY',
+  ANY = 'ANY'
 }
 
 export class Element extends Tag {
