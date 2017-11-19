@@ -13,6 +13,15 @@ export class Parser {
     return Parser.matchContents(dtdContent, /\<!(.*?)\>/g);
   }
 
+  public static getTagName(lineTagString:string):string {
+    const match = lineTagString.match(/\<!([^ ]+) /);
+    if(match && match.length > 1) {
+      return match[1]
+    }else{
+      throw new Error("getTagName fail for " + lineTagString);
+    }
+  }
+
   private static matchContents(content: string, match: RegExp): string[] {
     const result = content.match(match);
     if (!result) {
