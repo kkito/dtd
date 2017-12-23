@@ -23,7 +23,7 @@ export enum ElementCategory {
   ANY = 'ANY',
 }
 
-export class Element extends Tag {
+export class Element extends Tag implements IElement {
   public static readonly CATEGORY_EMPTY = 'EMPTY';
   public static readonly CATEGORY_ANY = 'ANY';
 
@@ -80,5 +80,18 @@ export class Element extends Tag {
 
   public elementValue(): string {
     return this.theElementValue;
+  }
+
+  public validte(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  public getContent(): IElement[] | AttributeType | null {
+    throw new Error('Method not implemented.');
+  }
+  public getCategory(): ElementCategory | null {
+    throw new Error('Method not implemented.');
+  }
+  public isCategory(): boolean {
+    throw new Error('Method not implemented.');
   }
 }
