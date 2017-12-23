@@ -3,24 +3,24 @@ import { ElementContent, IElementSuffix } from './element_content';
 import { Tag } from './tag';
 
 /**
- * Element 
+ * Element
  * <!ELEMENT element-name category>
  * or
  * <!ELEMENT element-name (element-content)>
  */
 
-// TODO 
+// TODO
 export interface IElement {
   getName(): string;
   validte(): boolean;
-  getContent():(IElement[] | AttributeType | null) , 
-  getCategory():(ElementCategory | null) , 
-  isCategory():boolean;
+  getContent(): IElement[] | AttributeType | null;
+  getCategory(): ElementCategory | null;
+  isCategory(): boolean;
 }
 
 export enum ElementCategory {
   EMPTY = 'EMPTY',
-  ANY = 'ANY'
+  ANY = 'ANY',
 }
 
 export class Element extends Tag {
@@ -71,7 +71,7 @@ export class Element extends Tag {
   /**
    * Declaring either/or Content <!ELEMENT note (to,from,header,(message|body))>
    * Declaring Mixed Content <!ELEMENT note (#PCDATA|to|from|header|message)*>
-   * 
+   *
    */
   public elementContents(): ElementContent[] {
     // TODO

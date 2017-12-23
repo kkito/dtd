@@ -28,23 +28,23 @@ test('.matchDTDTags', () => {
   expect(tags[1]).toBe(secondTag);
 });
 
-test('getTagName' , () => {
-  let tag = '<!ELEMENT note (to,from,heading,body)>'
-  expect(Parser.getTagName(tag)).toBe('ELEMENT')
+test('getTagName', () => {
+  let tag = '<!ELEMENT note (to,from,heading,body)>';
+  expect(Parser.getTagName(tag)).toBe('ELEMENT');
 
-  tag = '<!ATTLIST payment type CDATA "check">'
-  expect(Parser.getTagName(tag)).toBe('ATTLIST')
-})
+  tag = '<!ATTLIST payment type CDATA "check">';
+  expect(Parser.getTagName(tag)).toBe('ATTLIST');
+});
 
-test('all' , () => {
-  const content = '<?xml version="1.0"?> \
+test('all', () => {
+  const content =
+    '<?xml version="1.0"?> \
   <!ELEMENT note (to,from,heading,body)> \
   <!ELEMENT to (#PCDATA)> \
   <!ELEMENT from (#PCDATA)> \
   <!ELEMENT heading (#PCDATA)> \
-  <!ELEMENT body (#PCDATA)>'
+  <!ELEMENT body (#PCDATA)>';
 
   const tags = Parser.matchDTDTags(content);
-  expect(tags.length).toBe(5)
-
-})
+  expect(tags.length).toBe(5);
+});

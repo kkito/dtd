@@ -1,13 +1,13 @@
-import {ElementContent} from './element_content';
+import { ElementContent } from './element_content';
 
 /**
  * contains some element contents
  */
 export interface IElementContentGroup {
-  isORGroup():boolean;
-  isAndGroup():boolean;
+  isORGroup(): boolean;
+  isAndGroup(): boolean;
 
-  getContents():ElementContent[];
+  getContents(): ElementContent[];
 }
 
 /**
