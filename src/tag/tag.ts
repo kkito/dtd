@@ -1,4 +1,25 @@
 export class Tag {
+  public static ElementTagName = 'ELEMENT';
+  public static AttlistTagName = 'ATTLIST';
+  public static EntityTagName = 'ENTITY';
+
+  public static isElement(content: string): boolean {
+    return this.isGivenTag(content, this.ElementTagName);
+  }
+
+  public static isAttlist(content: string): boolean {
+    return this.isGivenTag(content, this.AttlistTagName);
+  }
+
+  public static isEntity(content: string): boolean {
+    return this.isGivenTag(content, this.EntityTagName);
+  }
+
+  protected static isGivenTag(content: string, tagName: string): boolean {
+    content = content.trim();
+    return content.startsWith('<!' + tagName);
+  }
+
   protected tagString: string;
   protected tagName: string;
   protected tagContent: string;
