@@ -16,6 +16,10 @@ export interface IElement {
   getContent(): IElement[] | AttributeType | null;
   getCategory(): ElementCategory | null;
   isCategory(): boolean;
+  hasChildElement(): boolean;
+  childElementNames(): string[];
+  // check if a child element
+  isChildElement(tagName: string): boolean;
 }
 
 export enum ElementCategory {
@@ -93,5 +97,16 @@ export class Element extends Tag implements IElement {
   }
   public isCategory(): boolean {
     throw new Error('Method not implemented.');
+  }
+
+  public hasChildElement(): boolean {
+    throw new Error('Method not implemented.');
+  }
+  public childElementNames(): string[] {
+    throw new Error('Method not implemented.');
+  }
+
+  public isChildElement(tagName: string): boolean {
+    return false;
   }
 }

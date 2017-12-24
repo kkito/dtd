@@ -22,7 +22,20 @@ export class DTD implements IDTD {
   public getRootElement(): IElement {
     throw new Error('Method not implemented.');
   }
+
   public validate(): boolean {
     throw new Error('Method not implemented.');
+  }
+
+  protected findRootElement(): IElement {
+    let result: IElement = this.elements[0];
+    this.elements.forEach(x => {
+      if (x.hasChildElement()) {
+        if (x.isChildElement(result.getName())) {
+          result = x;
+        }
+      }
+    });
+    return result;
   }
 }
